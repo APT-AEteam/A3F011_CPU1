@@ -12,7 +12,7 @@
 /* Includes ------------------------------------------------------------------*/
 
 #include <soc.h>
-#include <drv/gpio.h>
+#include <drv/mbox.h>
 //#include <drv/uart.h>
 //#include <drv/adc.h>
 #include <drv/pin.h>
@@ -42,6 +42,7 @@
 //extern void wwdt_irqhandler(void);
 //extern void rtc_irqhandler(csp_rtc_t *ptRtcBase);
 //
+extern void mbox_irqhandler(csp_mbox_t *ptMboxBase);
 //extern void csi_tick_increase(void);
 /* private function--------------------------------------------------------*/
 
@@ -63,16 +64,13 @@ uint8_t g_byAdcDone = 0;
 //	tick_irqhandler();		//system coret 
 //}
 
-void  mbox_gs232e_int_handler(void) 
-{
-    // ISR content ...
-
-}
-
 
 void mbox0_int0_int_handler(void) 
 {	
 	// ISR content ...
+	csp_mbox_t *ptMboxChBase = MBOX_REG_BASE(MBOX0, MBOX_INT0);
+	
+	mbox_irqhandler(ptMboxChBase);
  
 }
 

@@ -35,7 +35,7 @@
 //#include "csp_wwdt.h"
 //#include "csi_core.h"
 //#include "csp_tkey.h"
-
+#include "csp_mbox.h"
 
 //typedef csp_syscon_t 	csp_iwdt_t;
 //typedef csp_usart_t 	csp_lin_t;
@@ -67,6 +67,7 @@ extern csp_bt_t  		*BT0; //, *BT1,*BT2, *BT3;
 //extern csp_tkey_t		*TKEY;
 //
 //extern csp_lin_t		*LIN0;
+extern csp_mbox_t       *MBOX0,*MBOX1;
 
 #endif
 

@@ -45,3 +45,6 @@ csp_bt_t  		*BT0 	   	= (csp_bt_t 	*)(APB_BT0_BASE) ;
 //csp_tkey_t      *TKEY		= (csp_tkey_t   *)(APB_TKEY_BASE);
 //
 //csp_lin_t 		*LIN0   	= (csp_lin_t *)(APB_USART0_BASE);
+
+csp_mbox_t       *MBOX0    = (csp_mbox_t	*)(AHB_MBOX0_BASE);
+csp_mbox_t       *MBOX1    = (csp_mbox_t	*)(CPU1_AHB_MBOX1_BASE);
