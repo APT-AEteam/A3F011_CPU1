@@ -19,23 +19,24 @@
 //#include "csp_cnta.h"
 //#include "csp_crc.h"
 //#include "csp_ept.h"
-//#include "csp_etb.h"
+#include "csp_etb.h"
 #include "csp_gpio.h"
 //#include "csp_gpta.h"
 //#include "csp_i2c.h"
 #include "csp_ifc.h"
 //#include "csp_lpt.h"
-//#include "csp_rtc.h"
-//#include "csp_sio.h"
+#include "csp_rtc.h"
+#include "csp_sio.h"
 #include "csp_spi.h"
-//#include "csp_dma.h"
+#include "csp_dma.h"
 #include "csp_syscon.h"
-//#include "csp_uart.h"
+#include "csp_uart.h"
+#include "csp_mbox.h"
 //#include "csp_usart.h"
 //#include "csp_wwdt.h"
 //#include "csi_core.h"
 //#include "csp_tkey.h"
-#include "csp_mbox.h"
+
 
 //typedef csp_syscon_t 	csp_iwdt_t;
 //typedef csp_usart_t 	csp_lin_t;
@@ -45,15 +46,15 @@
 //extern CORET_Type 		*CORETIMER;
 extern csp_ifc_t 		*IFC;
 extern csp_syscon_t 	*SYSCON;
-//extern csp_etb_t        *ETCB;
-//extern csp_dma_t   		*DMA;
+extern csp_etb_t        *ETCB;
+extern csp_dma_t   		*DMA0;
 //extern csp_adc_t 		*ADC0;
 extern csp_gpio_t 		*GPIOA0;
 //extern csp_igrp_t 		*GPIOGRP;
 //extern csp_usart_t 		*USART0;
-//extern csp_uart_t 		*UART0, *UART1, *UART2;
-extern csp_spi_t  		*SPI0;
-//extern csp_sio_t  		*SIO0;
+extern csp_uart_t 		*UART1; //, *UART0, *UART2;
+extern csp_spi_t  		*SPI0,*CPU1_SPI;
+extern csp_sio_t  		*SIO0;
 //extern csp_i2c_t  		*I2C0; 
 //extern csp_cnta_t  		*CNTA;
 //extern csp_gpta_t 		*GPTA0;
@@ -61,13 +62,14 @@ extern csp_spi_t  		*SPI0;
 //extern csp_lpt_t 		*LPT;
 //extern csp_wwdt_t 		*WWDT;
 extern csp_bt_t  		*BT0; //, *BT1,*BT2, *BT3;
+extern csp_bt_t  		*CPU1_BT;
 //extern csp_crc_t 		*CRC;
-//extern csp_rtc_t 		*RTC;
+extern csp_rtc_t 		*RTC;
 //extern csp_iwdt_t		*IWDT;
 //extern csp_tkey_t		*TKEY;
 //
 //extern csp_lin_t		*LIN0;
-extern csp_mbox_t       *MBOX0,*MBOX1;
+extern csp_mbox_t      *MBOX0,*MBOX1;
 
 #endif
 

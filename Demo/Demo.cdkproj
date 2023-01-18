@@ -9,7 +9,7 @@
   </VirtualDirectory>
   <MergedToYaml>yes</MergedToYaml>
   <MonitorProgress>
-    <DebugLaunch>80</DebugLaunch>
+    <DebugLaunch>40</DebugLaunch>
     <FlashOperate>64</FlashOperate>
   </MonitorProgress>
   <Dependencies Name="BuildSet"/>
@@ -17,18 +17,12 @@
     <VendorName>NULL</VendorName>
   </VendorInfo>
   <PackPathes>$(ProjectPath)/../components|$(ProjectPath)/../board|$(ProjectPath)/../Demo|</PackPathes>
-  <DebugSessions>
-    <watchExpressions/>
-    <memoryExpressions>;;;</memoryExpressions>
-    <statistics>E0011100;1;32;10;MHZ;E0011104</statistics>
-    <peripheralTabs>
-      <Tab disFormat="Hex">DMA</Tab>
-    </peripheralTabs>
-    <WatchDisplayFormat>0</WatchDisplayFormat>
-    <LocalDisplayFormat>0</LocalDisplayFormat>
-    <debugLayout/>
-    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
-  </DebugSessions>
+  <ToolsConfig>
+    <Compiler>
+      <Name>XTGccElfNewlib</Name>
+      <Version>latest</Version>
+    </Compiler>
+  </ToolsConfig>
   <BuildConfigs>
     <BuildConfig Name="BuildSet">
       <Target>
@@ -102,8 +96,8 @@
       <Output>
         <OutputName>$(ProjectName)</OutputName>
         <Type>Executable</Type>
-        <CreateHexFile>yes</CreateHexFile>
-        <CreateBinFile>no</CreateBinFile>
+        <CreateHexFile>no</CreateHexFile>
+        <CreateBinFile>yes</CreateBinFile>
         <Preprocessor>no</Preprocessor>
         <Disassmeble>yes</Disassmeble>
         <CallGraph>no</CallGraph>
@@ -163,7 +157,7 @@
       </Linker>
       <Debug>
         <LoadApplicationAtStartup>yes</LoadApplicationAtStartup>
-        <Connector>ICE</Connector>
+        <Connector>Remote ICE</Connector>
         <StopAt>no</StopAt>
         <StopAtText>main</StopAtText>
         <InitFile>$(ProjectPath)/script/gdb.init</InitFile>
@@ -171,15 +165,15 @@
         <AutoRun>no</AutoRun>
         <ResetType>Soft Reset</ResetType>
         <SoftResetVal>1</SoftResetVal>
-        <ResetAfterLoad>yes</ResetAfterLoad>
+        <ResetAfterLoad>no</ResetAfterLoad>
         <AfterResetFile/>
         <Dumpcore>no</Dumpcore>
         <DumpcoreText>$(ProjectPath)/$(ProjectName).cdkcore</DumpcoreText>
         <ConfigICE>
           <IP>localhost</IP>
-          <PORT>1025</PORT>
+          <PORT>1026</PORT>
           <CPUNumber>0</CPUNumber>
-          <Clock>10000</Clock>
+          <Clock>5000</Clock>
           <Delay>10</Delay>
           <NResetDelay>100</NResetDelay>
           <WaitReset>50</WaitReset>
@@ -187,17 +181,17 @@
           <TRST>no</TRST>
           <DebugPrint>no</DebugPrint>
           <Connect>Normal</Connect>
-          <ResetType>Soft Reset</ResetType>
+          <ResetType>Hard Reset</ResetType>
           <SoftResetVal>1</SoftResetVal>
           <RTOSType>Bare Metal</RTOSType>
-          <DownloadToFlash>yes</DownloadToFlash>
-          <ResetAfterConnect>yes</ResetAfterConnect>
+          <DownloadToFlash>no</DownloadToFlash>
+          <ResetAfterConnect>no</ResetAfterConnect>
           <GDBName/>
           <GDBServerType>Local</GDBServerType>
           <OtherFlags/>
           <ICEEnablePCSampling>yes</ICEEnablePCSampling>
           <ICESamplingFreq>1000</ICESamplingFreq>
-          <RemoteICEEnablePCSampling>yes</RemoteICEEnablePCSampling>
+          <RemoteICEEnablePCSampling>no</RemoteICEEnablePCSampling>
           <RemoteICESamplingPort>1026</RemoteICESamplingPort>
           <Version>latest</Version>
           <SupportRemoteICEAsyncDebug>no</SupportRemoteICEAsyncDebug>
@@ -237,4 +231,18 @@
       </Flash>
     </BuildConfig>
   </BuildConfigs>
+  <DebugSessions>
+    <watchExpressions>BT0:1;RTC:1;UART1:1;ptUartCfg:1</watchExpressions>
+    <memoryExpressions>0x20000000;0x10000000;0x45000030;0x93000014</memoryExpressions>
+    <statistics>E0011100;1;32;10;MHZ;E0011104</statistics>
+    <peripheralTabs>
+      <Tab disFormat="Hex">MBOX0</Tab>
+      <Tab disFormat="Hex">MBOX1</Tab>
+      <Tab disFormat="Hex">INTERRUPT</Tab>
+    </peripheralTabs>
+    <WatchDisplayFormat>0</WatchDisplayFormat>
+    <LocalDisplayFormat>0</LocalDisplayFormat>
+    <debugLayout/>
+    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
+  </DebugSessions>
 </Project>

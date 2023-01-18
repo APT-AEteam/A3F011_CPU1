@@ -136,9 +136,7 @@ typedef enum
 typedef enum
 {
     GRP_GPIOA0 	= 0,
-//	GRP_GPIOA1 	= 1,
     GRP_GPIOB0 	= 2,
-//	GRP_GPIOC0 	= 4,
 }gpio_group_e;
 
 
@@ -273,8 +271,8 @@ static inline void csp_exi_set_port_irq(csp_syscon_t *ptSysconBase,uint32_t wVal
 {
    	if(bEnable)
 	{
-		ptSysconBase->EXIER = wValue;				//EXI interrupt enable
-		while(!(ptSysconBase->EXIMR & wValue));		//Check EXI is enabled or not
+		ptSysconBase->EXIER |= wValue;				//EXI interrupt enable
+//		while(!(ptSysconBase->EXIMR & wValue));		//Check EXI is enabled or not
 		ptSysconBase->EXICR = wValue;				//Clear EXI status bit
 	}
 	else
@@ -284,12 +282,9 @@ static inline void csp_exi_set_port_irq(csp_syscon_t *ptSysconBase,uint32_t wVal
 /*************************************************************************
  * @brief  gpio filtering
 ****************************************************************************/
-static inline void csp_gpio_flt_en(csp_gpio_t *ptGpioBase,uint8_t byPinNum, bool bEnable)
+static inline void csp_gpio_flt_en(csp_gpio_t *ptGpioBase,uint8_t byPinNum)
 {
-	if(bEnable)
-		ptGpioBase->FLTEN  |= (0x01 << byPinNum);
-	else
-		ptGpioBase->FLTEN  &=  ~(0x01 << byPinNum);
+	ptGpioBase->FLTEN  = (ptGpioBase->FLTEN) | (0x01 << byPinNum);
 }
 /*************************************************************************
  * @brief  gpio output mode set 

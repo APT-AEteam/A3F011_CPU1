@@ -10,36 +10,36 @@
 //*/
 //#include <stdint.h>
 //#include <stddef.h>
-//#include <drv/pin.h>
+#include <drv/pin.h>
 //
 ///* Private macro------------------------------------------------------*/
 ///* externs function---------------------------------------------------*/
 ///* externs variablesr-------------------------------------------------*/
 ///* Private variablesr-------------------------------------------------*/
-//
-///** \brief set gpio mux function
-// * 
-// *  \param[in] ePinName: gpio pin name
-// *  \return pointer of pin infor
-// */ 
-//static unsigned int *apt_get_pin_name_addr(pin_name_e ePinName)
-//{
-//	static unsigned int wPinInfo[2];
-//	
-//
-//	if(ePinName > PA015)
-//	{
-//		wPinInfo[0] = APB_GPIOB0_BASE;				//PB0
-//		wPinInfo[1] = ePinName - 16;
-//	}
-//	else
-//	{
-//		wPinInfo[0] = APB_GPIOA0_BASE;				//PA0
-//		wPinInfo[1] = ePinName;
-//	}	
-//	
-//	return wPinInfo;
-//}
+
+/** \brief set gpio mux function
+ 
+ *  \param[in] ePinName: gpio pin name
+ *  \return pointer of pin infor
+ */ 
+static unsigned int *apt_get_pin_name_addr(pin_name_e ePinName)
+{
+	static unsigned int wPinInfo[2];
+	
+
+	if(ePinName > PA15)
+	{
+		wPinInfo[0] = AHB_GPIOB_BASE;				//PB0
+		wPinInfo[1] = ePinName - 16;
+	}
+	else
+	{
+		wPinInfo[0] = AHB_GPIOA_BASE;				//PA0
+		wPinInfo[1] = ePinName;
+	}	
+	
+	return wPinInfo;
+}
 //
 ///** \brief set gpio interrupt group
 // * 
@@ -239,27 +239,27 @@
 //		}
 //	}
 //}
-///** \brief set gpio mux function
-// * 
-// *  \param[in] ePinName: gpio pin name
-// *  \param[in] ePinFunc: gpio pin function
-// *  \return enone
-// */  
-//void csi_pin_set_mux(pin_name_e ePinName, pin_func_e ePinFunc)
-//{
-//	csp_gpio_t *ptGpioBase = NULL;
-//	unsigned int *ptPinInfo = NULL;
-//	
-//	ptPinInfo = apt_get_pin_name_addr(ePinName);
-//	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];						//pin addr
-//	ePinName = (pin_name_e)ptPinInfo[1];							//pin
-//
-//	if(ePinName < 8)
-//		ptGpioBase->CONLR =(ptGpioBase->CONLR & ~(0xF << 4*ePinName)) | (ePinFunc << 4*ePinName);
-//	else
-//		ptGpioBase->CONHR =(ptGpioBase->CONHR & ~(0xF << 4*(ePinName-8))) | (ePinFunc << 4*(ePinName-8));	
-//	
-//}
+/** \brief set gpio mux function
+ * 
+ *  \param[in] ePinName: gpio pin name
+ *  \param[in] ePinFunc: gpio pin function
+ *  \return enone
+ */  
+void csi_pin_set_mux(pin_name_e ePinName, pin_func_e ePinFunc)
+{
+	csp_gpio_t *ptGpioBase = NULL;
+	unsigned int *ptPinInfo = NULL;
+	
+	ptPinInfo = apt_get_pin_name_addr(ePinName);
+	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];						//pin addr
+	ePinName = (pin_name_e)ptPinInfo[1];							//pin
+
+	if(ePinName < 8)
+		ptGpioBase->CONLR =(ptGpioBase->CONLR & ~(0xF << 4*ePinName)) | (ePinFunc << 4*ePinName);
+	else
+		ptGpioBase->CONHR =(ptGpioBase->CONHR & ~(0xF << 4*(ePinName-8))) | (ePinFunc << 4*(ePinName-8));	
+	
+}
 ///** \brief set gpio iomap function
 // * 
 // *  \param[in] ePinName: gpio pin name
@@ -608,28 +608,29 @@
 //	else
 //		csp_gpio_irq_dis(ptGpioBase, ePinName);
 //}
-///** \brief  gpio pin toggle
-// * 
-// *  \param[in] ePinName: gpio pin name
-// *  \return none
-// */
-//void csi_pin_toggle(pin_name_e ePinName)
-//{
-//	uint32_t wDat;
-//	csp_gpio_t *ptGpioBase = NULL;
-//	unsigned int *ptPinInfo = NULL;
-//	
-//	ptPinInfo = apt_get_pin_name_addr(ePinName);
-//	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];	
-//	ePinName = (pin_name_e)ptPinInfo[1];
-//	
-//	wDat = (ptGpioBase->ODSR >> ePinName) & 0x01;
-//	if(wDat) 
-//		ptGpioBase->CODR = (1ul << ePinName);
-//	else
-//		ptGpioBase->SODR = (1ul << ePinName);
-//	
-//}
+
+/** \brief  gpio pin toggle
+ * 
+ *  \param[in] ePinName: gpio pin name
+ *  \return none
+ */
+void csi_pin_toggle(pin_name_e ePinName)
+{
+	uint32_t wDat;
+	csp_gpio_t *ptGpioBase = NULL;
+	unsigned int *ptPinInfo = NULL;
+	
+	ptPinInfo = apt_get_pin_name_addr(ePinName);
+	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];	
+	ePinName = (pin_name_e)ptPinInfo[1];
+	
+	wDat = (ptGpioBase->ODSR >> ePinName) & 0x01;
+	if(wDat) 
+		ptGpioBase->CODR = (1ul << ePinName);
+	else
+		ptGpioBase->SODR = (1ul << ePinName);
+	
+}
 //
 ///** \brief  gpio pin set high(output = 1)
 // * 

@@ -923,6 +923,19 @@ __STATIC_INLINE int32_t csi_had_check_char(void)
 /*@} end of group CSI_MEXSTATUS */
 
 
+/**
+  \brief   CHIP System Reset
+  \details Triggle ALL CPUs System Reset
+  */
+__STATIC_INLINE void csi_chip_reset (void)
+{
+    uint32_t mexstatus;
+    mexstatus = __get_MEXSTATUS();
+    mexstatus &= (~(MEXSTATUS_RESET_Msk));
+    mexstatus |= (uint32_t)(0x3 << MEXSTATUS_RESET_Pos);
+    __set_MEXSTATUS(mexstatus);
+}
+
 
 /**
   \brief   CPU System Reset
